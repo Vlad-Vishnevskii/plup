@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import './styles.scss';
+import { Matrix } from './components/matrix';
+import { HexagonAnimation } from './components/hexagon';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="container">
+        <header>SYSTEM STATUS: [ONLINE] 👥 VISITORS: [203]</header>
+
+        <h1 className="main-title">PLUP</h1>
+
+        <div className="grid">
+          <div className="grid_item">SYSTEM METRICS</div>
+          <div className="grid_item">UPDATE LOG</div>
+          <div className="grid_item">
+            <HexagonAnimation />
+          </div>
+          <div className="grid_item">
+            <Matrix />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
