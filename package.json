@@ -2,6 +2,7 @@
   "name": "plup",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://Vlad-Vishnevskii.github.io/plup",
   "dependencies": {
     "cra-template": "1.2.0",
     "gsap": "^3.12.7",
@@ -11,6 +12,8 @@
     "react-typed": "^2.0.12"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -35,6 +38,7 @@
     ]
   },
   "devDependencies": {
+    "gh-pages": "^6.3.0",
     "sass": "^1.83.4",
     "web-vitals": "^4.2.4"
   }
