@@ -111,11 +111,11 @@
 .scroll-container {
   overflow: hidden;
   position: relative;
-  height: 400px;
+  height: 270px;
   width: 100%;
 
   @media (max-width: 1445px) {
-    height: 290px;
+    height: 220px;
   }
 }
 
