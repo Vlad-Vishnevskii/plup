@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/plup/static/css/main.bde9e9ca.css",
+    "main.js": "/plup/static/js/main.866750fc.js",
+    "static/js/488.b1d12e14.chunk.js": "/plup/static/js/488.b1d12e14.chunk.js",
+    "index.html": "/plup/index.html",
+    "main.bde9e9ca.css.map": "/plup/static/css/main.bde9e9ca.css.map",
+    "main.866750fc.js.map": "/plup/static/js/main.866750fc.js.map",
+    "488.b1d12e14.chunk.js.map": "/plup/static/js/488.b1d12e14.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bde9e9ca.css",
+    "static/js/main.866750fc.js"
+  ]
+}
