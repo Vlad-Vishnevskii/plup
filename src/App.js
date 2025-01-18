@@ -7,6 +7,8 @@ import {
   ProcessorIcon,
   LampIcon,
   DynamicScrollText,
+  LinkIcon,
+  MonitorIcon,
 } from './components';
 import { SYSTEMS_METRICS } from './constants/systemMetrics';
 import { ReactTyped } from 'react-typed';
@@ -52,11 +54,31 @@ function App() {
   return (
     <div className="App">
       <div className="container">
-        <header>
-          SYSTEM STATUS: [ONLINE] 👥 VISITORS: [
-          {SYSTEMS_METRICS[activeMetric].visitors}]
+        <header className="header">
+          <div>
+            SYSTEM STATUS: [ONLINE] 👥 VISITORS: [
+            {SYSTEMS_METRICS[activeMetric].visitors}]
+          </div>
+          <button className="button">
+            <MonitorIcon /> CA
+          </button>
         </header>
+        <div className="top-links">
+          <a className="button" href="#">
+            <LinkIcon /> X
+          </a>
+          <button className="button button--disabled">
+            <MonitorIcon /> DEPLOY <span>SOON</span>
+          </button>
+        </div>
         <h1 className="main-title">PLUP</h1>
+        <div className="top-links">
+          <button className="button">💬 CHAT</button>
+
+          <button className="button button--disabled">
+            👤 AGENT <span>SOON</span>
+          </button>
+        </div>
         <div className="grid">
           <div
             className="grid_item"

@@ -43,41 +43,48 @@ export const DynamicScrollText = () => {
           display: 'flex',
           flexDirection: 'column',
           position: 'relative',
+          gap: '30px',
         }}
       >
-        <div>Первая строка текста</div>
-        <div>Вторая строка текста</div>
-        <div>Третья строка текста</div>
-        <div>Четвертая строка текста</div>
-        <div>Первая строка текста</div>
-        <div>Вторая строка текста</div>
-        <div>Третья строка текста</div>
-        <div>Четвертая строка текста</div>
+        <div class="terminal-message">
+          <div class="text-gray">[12/15/24] DATASET EXPANSION</div>
+          <div class="terminal-message_padding">
+            <div class="text-gray">• Added 3.2M training samples</div>
+            <div class="text-gray">• Integrated new knowledge domains</div>
+            <div class="text-green">STATUS: COMPLETE</div>
+          </div>
+        </div>
+
+        <div class="terminal-message">
+          <div class="text-gray">[12/16/24] SECURITY PATCH</div>
+          <div class="terminal-message_padding">
+            <div class="text-gray">
+              • Fixed vulnerability in encryption layer
+            </div>
+            <div class="text-gray">• Updated firewall protocols</div>
+            <div class="text-red">STATUS: ERROR</div>
+          </div>
+        </div>
+
         {/* Дублирование для бесшовного эффекта */}
-        <div>Первая строка текста</div>
-        <div>Вторая строка текста</div>
-        <div>Третья строка текста</div>
-        <div>Четвертая строка текста</div>
-        <div>Первая строка текста</div>
-        <div>Вторая строка текста</div>
-        <div>Третья строка текста</div>
-        <div>Четвертая строка текста</div>
-        <div>Первая строка текста</div>
-        <div>Вторая строка текста</div>
-        <div>Третья строка текста</div>
-        <div>Четвертая строка текста</div>
-        <div>Первая строка текста</div>
-        <div>Вторая строка текста</div>
-        <div>Третья строка текста</div>
-        <div>Четвертая строка текста</div>
-        <div>Первая строка текста</div>
-        <div>Вторая строка текста</div>
-        <div>Третья строка текста</div>
-        <div>Четвертая строка текста</div>
-        <div>Первая строка текста</div>
-        <div>Вторая строка текста</div>
-        <div>Третья строка текста</div>
-        <div>Четвертая строка текста</div>
+
+        <div class="terminal-message">
+          <div class="text-gray">[12/17/24] QUANTUM CORE UPDATE</div>
+          <div class="terminal-message_padding">
+            <div class="text-gray">• Upgraded quantum processing units</div>
+            <div class="text-gray">• Reduced latency by 23%</div>
+            <div class="text-yellow">STATUS: IN_PROGRESS</div>
+          </div>
+        </div>
+
+        <div class="terminal-message">
+          <div class="text-gray">[12/18/24] NEURAL OPTIMIZATION</div>
+          <div class="terminal-message_padding">
+            <div class="text-gray">• Enhanced pattern recognition</div>
+            <div class="text-gray">• Improved response accuracy to 99.2%</div>
+            <div class="text-green">STATUS: COMPLETE</div>
+          </div>
+        </div>
       </div>
     </div>
   );

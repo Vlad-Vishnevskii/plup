@@ -5,3 +5,5 @@ export * from './matrix-icon';
 export * from './processor-icon';
 export * from './lamp-icon';
 export * from './anim-text';
+export * from './link-icon';
+export * from './monitor-icon';
