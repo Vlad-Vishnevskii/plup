@@ -9,16 +9,115 @@ import {
   DynamicScrollText,
   LinkIcon,
   MonitorIcon,
+  CloseIcon,
 } from './components';
 import { SYSTEMS_METRICS } from './constants/systemMetrics';
-import { ReactTyped } from 'react-typed';
+import Modal from 'react-modal';
 import './styles.scss';
+
+Modal.setAppElement('#root');
+
+const handleDisableBodyScroll = () => {
+  document.body.style.overflow = 'hidden';
+};
+
+const handleEnableBodyScroll = () => {
+  document.body.style.overflow = 'unset';
+};
 
 function App() {
   const [activeMetric, setActiveMetric] = useState(0);
   const sourceRef = useRef(null); // Ссылка на блок-источник
   const targetRef = useRef(null); // Ссылка на блок-приемник
   const [sourceHeight, setSourceHeight] = useState(0);
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [chatArr, setChatArr] = useState([
+    { text: 'PLUP Terminal v1.0.0', isOwn: false, id: 0 },
+    { text: 'Type your message and press Enter...', isOwn: false, id: 1 },
+  ]);
+  const [messageValue, setMessageValue] = useState('');
+  const [loading, setLoading] = useState(true); // Стейт для загрузки
+  const [progress, setProgress] = useState(0); // Стейт для процента прогресса
+  const [message, setMessage] = useState('Initializing'); // Стейт для текста прелоадера
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter' && messageValue) {
+      setChatArr((prev) => [
+        ...prev,
+        {
+          text: messageValue,
+          isOwn: true,
+          id: prev.length,
+        },
+      ]);
+
+      setTimeout(() => {
+        setChatArr((prev) => [
+          ...prev,
+          {
+            text: 'Could you provide more details about your request?',
+            isOwn: false,
+          },
+        ]);
+      }, 1000);
+
+      setMessageValue('');
+    }
+  };
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  // Эффект для симуляции загрузки
+  useEffect(() => {
+    const progressInterval = setInterval(() => {
+      if (progress < 100) {
+        setProgress((prev) => prev + 10); // Увеличиваем прогресс на 10% каждые 500мс
+      } else {
+        clearInterval(progressInterval); // Останавливаем таймер, когда прогресс достигает 100%
+      }
+    }, 300);
+
+    // Эффект для изменения текста
+    const messageInterval = setInterval(() => {
+      switch (progress) {
+        case 0:
+          setMessage('Initializing');
+          break;
+        case 30:
+          setMessage('Loading resources');
+          break;
+        case 60:
+          setMessage('Almost there');
+          break;
+        case 90:
+          setMessage('Finalizing');
+          break;
+        case 100:
+          setMessage('Completed');
+          break;
+        default:
+          setMessage('Loading...');
+      }
+    }, 300);
+
+    // После 2 секунд скрываем прелоадер и показываем основной контент
+    setTimeout(() => {
+      clearInterval(messageInterval);
+      setLoading(false);
+    }, 3500);
+
+    // Очистка интервалов
+    return () => {
+      clearInterval(progressInterval);
+      clearInterval(messageInterval);
+    };
+  }, [progress]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -49,7 +148,22 @@ function App() {
         observer.unobserve(sourceRef.current);
       }
     };
-  }, []);
+  }, [loading]);
+
+  if (loading) {
+    return (
+      <div className="loaderContainer">
+        <div className="loader">
+          <span className="spiner"></span>
+          <div className="progressBar">
+            <div className="progress" style={{ width: `${progress}%` }} />
+          </div>
+          <p className="progress-message">{message}</p>
+          <p className="progress-message">{progress}%</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="App">
@@ -73,7 +187,9 @@ function App() {
         </div>
         <h1 className="main-title">PLUP</h1>
         <div className="top-links">
-          <button className="button">💬 CHAT</button>
+          <button onClick={openModal} className="button">
+            💬 CHAT
+          </button>
 
           <button className="button button--disabled">
             👤 AGENT <span>SOON</span>
@@ -224,6 +340,43 @@ function App() {
           </div>
         </div>
       </div>
+      <Modal
+        isOpen={modalIsOpen}
+        onAfterOpen={handleDisableBodyScroll}
+        onAfterClose={handleEnableBodyScroll}
+        onRequestClose={closeModal}
+        className="Modal"
+        overlayClassName="Overlay"
+      >
+        <h2 className="Modal_title">
+          <span>
+            <MatrixIcon /> PLUP TERMINAL
+          </span>
+          <button className="Modal_close-btn" onClick={closeModal}>
+            <CloseIcon />
+          </button>
+        </h2>
+        <div className="Modal_content">
+          {chatArr.map((item) => (
+            <p
+              key={item.id}
+              class={`message ${item.isOwn ? 'message--own' : ''}`}
+            >
+              {item.text}
+            </p>
+          ))}
+        </div>
+        <div className="Modal_bottom">
+          <span>{'>'}</span>
+          <input
+            type="text"
+            value={messageValue}
+            onChange={(e) => setMessageValue(e.target.value)}
+            placeholder="Type your message..."
+            onKeyDown={handleKeyDown}
+          />
+        </div>
+      </Modal>
     </div>
   );
 }
