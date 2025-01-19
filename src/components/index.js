@@ -8,3 +8,4 @@ export * from './anim-text';
 export * from './link-icon';
 export * from './monitor-icon';
 export * from './close-icon';
+export * from './network-icon';

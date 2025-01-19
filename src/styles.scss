@@ -99,6 +99,12 @@
   margin-top: 15px;
 }
 
+.metric_name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .matrix-text {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
@@ -369,4 +375,63 @@
   font-size: 18px;
   font-weight: bold;
   color: rgba(0, 255, 0, 1);
+}
+
+.text {
+  font-family: 'Liberty';
+  font-weight: 100;
+  font-size: 7rem;
+  letter-spacing: -0.1em;
+  flex-flow: row;
+  text-align: center;
+
+  .letter {
+    color: rgba(0, 255, 0, 1);
+    text-shadow: 0 0 2rem rgba(0, 255, 0, 1);
+    display: inline-block;
+
+    &.letter-2 {
+      transform: translate(-0.2rem, 1rem) rotate(10deg);
+      animation: flicker 2s ease-in-out infinite alternate;
+    }
+  }
+}
+
+@keyframes flicker {
+  0% {
+    opacity: 1;
+    transform: translate(-0.2rem, 1rem) rotate(10deg);
+  }
+  5% {
+    opacity: 1;
+    transform: translate(-0.2rem, 1rem) rotate(10deg);
+  }
+  5.5% {
+    opacity: 0;
+    transform: translate(-0.2rem, 1rem) rotate(10deg);
+  }
+  6% {
+    opacity: 1;
+    transform: translate(-0.2rem, 1rem) rotate(10deg);
+  }
+  6.5% {
+    opacity: 1;
+    transform: translate(-0.2rem, 1rem) rotate(10deg);
+  }
+  7% {
+    opacity: 0;
+    transform: translate(-0.2rem, 1rem) rotate(10deg);
+  }
+  8% {
+    opacity: 1;
+    transform: translate(-0.2rem, 1rem) rotate(10deg);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-0.2rem, 1rem) rotate(13deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-0.2rem, 1rem) rotate(10deg);
+  }
 }

@@ -10,6 +10,7 @@ import {
   LinkIcon,
   MonitorIcon,
   CloseIcon,
+  NetworkIcon,
 } from './components';
 import { SYSTEMS_METRICS } from './constants/systemMetrics';
 import Modal from 'react-modal';
@@ -39,6 +40,7 @@ function App() {
   const [loading, setLoading] = useState(true); // Стейт для загрузки
   const [progress, setProgress] = useState(0); // Стейт для процента прогресса
   const [message, setMessage] = useState('Initializing'); // Стейт для текста прелоадера
+  const [isMobileView, setIsMobileView] = useState(false);
 
   function openModal() {
     setIsOpen(true);
@@ -150,6 +152,32 @@ function App() {
     };
   }, [loading]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobileView(window.innerWidth < 700);
+    };
+
+    // Установить первоначальное состояние
+    handleResize();
+
+    // Добавить обработчик события
+    window.addEventListener('resize', handleResize);
+
+    // Удалить обработчик при размонтировании
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  if (isMobileView) {
+    return (
+      <div className="loaderContainer">
+        <p className="progress-message">This website is desktop-only.</p>
+        <p className="progress-message">
+          Please access it from a desktop computer.
+        </p>
+      </div>
+    );
+  }
+
   if (loading) {
     return (
       <div className="loaderContainer">
@@ -185,7 +213,13 @@ function App() {
             <MonitorIcon /> DEPLOY <span>SOON</span>
           </button>
         </div>
-        <h1 className="main-title">PLUP</h1>
+        <h1 class="text">
+          <span class="letter letter-1">P</span>
+          <span class="letter letter-2">L</span>
+          <span class="letter letter-3">U</span>
+          <span class="letter letter-4">P</span>
+        </h1>
+        {/* <h1 className="main-title">PLUP</h1> */}
         <div className="top-links">
           <button onClick={openModal} className="button">
             💬 CHAT
@@ -205,15 +239,50 @@ function App() {
           >
             <h2 className="grid_title">SYSTEM METRICS</h2>
             <div className="metric_item">
-              <span>CPU LOAD:</span>
+              <span className="metric_name">
+                <ProcessorIcon /> CPU LOAD:
+              </span>
               <span>{`${SYSTEMS_METRICS[activeMetric].cpu_load}%`}</span>
             </div>
             <div className="metric_item">
-              <span>MEMORY:</span>
+              <span className="metric_name">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <line x1="22" x2="2" y1="12" y2="12"></line>
+                  <path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"></path>
+                  <line x1="6" x2="6.01" y1="16" y2="16"></line>
+                  <line x1="10" x2="10.01" y1="16" y2="16"></line>
+                </svg>
+                MEMORY:
+              </span>
               <span>{`${SYSTEMS_METRICS[activeMetric].memory}/1TB`}</span>
             </div>
             <div className="metric_item">
-              <span>TEMPERATURE:</span>
+              <span className="metric_name">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"></path>
+                </svg>
+                TEMPERATURE:
+              </span>
               <span>{`${SYSTEMS_METRICS[activeMetric].temperature}°C`}</span>
             </div>
           </div>
@@ -241,35 +310,81 @@ function App() {
               </li>
               <li className="grid_list-item">
                 <h3>
-                  <ProcessorIcon />
+                  <NetworkIcon />
                   Neural Pathways
                 </h3>
                 <p>1.1T Active</p>
               </li>
               <li className="grid_list-item">
                 <h3>
-                  <LampIcon />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                    <path d="M3 5V19A9 3 0 0 0 21 19V5"></path>
+                    <path d="M3 12A9 3 0 0 0 21 12"></path>
+                  </svg>
                   Knowledge Base
                 </h3>
                 <p>{SYSTEMS_METRICS[activeMetric].knowledge_base}TB Indexed</p>
               </li>
               <li className="grid_list-item">
                 <h3>
-                  <LampIcon />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                  </svg>
                   Response Time
                 </h3>
                 <p>{SYSTEMS_METRICS[activeMetric].responce_time}ms Avg</p>
               </li>
               <li className="grid_list-item">
                 <h3>
-                  <ProcessorIcon />
+                  <AiIcon width={16} height={16} />
                   Accuracy
                 </h3>
                 <p>{SYSTEMS_METRICS[activeMetric].accuracy}%</p>
               </li>
               <li className="grid_list-item">
                 <h3>
-                  <LampIcon />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <rect
+                      width="18"
+                      height="11"
+                      x="3"
+                      y="11"
+                      rx="2"
+                      ry="2"
+                    ></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
                   System Uptime
                 </h3>
                 <p>{SYSTEMS_METRICS[activeMetric].system_update}%</p>
